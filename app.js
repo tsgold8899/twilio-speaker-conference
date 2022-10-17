@@ -4,7 +4,6 @@ const dotenv = require('dotenv');
 const path = require('path');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser')
 
 dotenv.config();
 
@@ -16,8 +15,8 @@ const app = express();
 
 app.use(session({
   secret: process.env.SECRET_KEY,
-  resave: true,
-  saveUninitialized: true,
+  resave: false,
+  saveUninitialized: false,
   // cookie: { secure: false }
 }));
 
@@ -25,7 +24,6 @@ app.set('trust proxy', true);
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-app.use(cookieParser(process.env.SECRET_KEY));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'public')));
