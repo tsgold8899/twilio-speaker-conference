@@ -1,16 +1,17 @@
 extends _layout.pug
 
 block content
-  main.form-signin
-    form(method='post',action='/login')
-      h1.h3.mb-3.fw-normal Welcome
-      if message
-        div.alert.alert-danger= message
-      div.form-floating
-        input#username.form-control(type='text',name='username',placeholder='username')
-        label(for='username') Username
-      div.form-floating
-        input#password.form-control(type='password',name='password',placeholder='password')
-        label(for='password') Password
-      button.w-100.btn.btn-lg.btn-primary(type='submit') Sign in
-      p.mt-5.mb-3.text-muted &copy; 2020–2022
+  div.d-flex.vh-100
+    main.form-signin
+      form(method='post',action='/login')
+        h1.h3.mb-3.fw-normal Welcome
+        if message
+          div.alert.alert-danger= message
+        div.form-floating
+          input#username.form-control(type='text',name='username',placeholder='username')
+          label(for='username') Username
+        div.form-floating
+          input#password.form-control(type='password',name='password',placeholder='password')
+          label(for='password') Password
+        button.w-100.btn.btn-lg.btn-primary(type='submit') Sign in
+        p.mt-5.mb-3.text-muted &copy; 2020–2022
