@@ -6,12 +6,7 @@ const db = require('../models');
 module.exports = (app) => {
   app.use(passport.initialize());
   app.use(passport.session());
-  passport.use(new LocalStrategy({
-    usernameField: 'username',
-    passwordField: 'password',
-    passReqToCallback: true,
-    session: true,
-  }, (req, username, password, cb) => {
+  passport.use(new LocalStrategy((username, password, cb) => {
     const { Op } = db.Sequelize;
     db.User.findOne({
       where: {
@@ -27,17 +22,10 @@ module.exports = (app) => {
   }));
 
   passport.serializeUser(function(user, cb) {
-    process.nextTick(function() {
-      return cb(null, {
-        id: user.id,
-        username: user.username,
-      });
-    });
+    cb(null, user.id);
   });
 
-  passport.deserializeUser(function(user, cb) {
-    process.nextTick(function() {
-      return cb(null, user);
-    });
+  passport.deserializeUser(function(id, cb) {
+    console.log(id);
   });
 };

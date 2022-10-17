@@ -15,15 +15,15 @@ const app = express();
 
 app.use(session({
   secret: process.env.SECRET_KEY,
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: true }
+  resave: true,
+  saveUninitialized: true,
+  // cookie: { secure: false }
 }));
+
 app.set('trust proxy', true);
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'public')));

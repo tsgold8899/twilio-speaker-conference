@@ -6,18 +6,22 @@ const handleRole = (req, res, next, roles) => async (err, user /* , info */) => 
   if (!user && roles && !roles.length) {
     return next();
   }
-  if (!user) return response.serverUnauthorized(res, 'Unauthorized');
+  if (!user) return res.status(404).send('Unauthorized');
 
   if (roles && roles.length && !roles.includes(user.role)) {
-    return response.permissionDenied(res, 'You are not authorized to perform this action.');
+    return res.status(404).send('You are not authorized to perform this action.');
   }
   req.user = user;
 
   return next();
 };
 
-const authorize = (roles) => (req, res, next) =>
-  passport.authenticate('session', {}, handleRole(req, res, next, roles))(req, res, next);
+const authorize = (roles) => (req, res, next) => {
+  if(req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+};
 
 exports.isAuthenticated = authorize();
 exports.isAdmin = authorize([USER_ROLES.ADMIN]);

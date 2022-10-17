@@ -14,11 +14,8 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.logout = (req, res, next) => {
-  if (req.session) {
-    req.session.destroy(err => {
-      res.redirect('/login');
-    });
-  } else {
+  req.logout(function(err) {
+    if (err) { return next(err); }
     res.redirect('/login');
-  }
+  });
 };
