@@ -1,16 +1,12 @@
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local');
 
 const db = require('../models');
 
 module.exports = (app) => {
-  const { Op } = db.Sequelize;
-
-  const localStrategy = new LocalStrategy({
-    usernameField: 'username',
-    passwordField: 'password',
-    passReqToCallback: true,
-  }, async (req, username, password, done) => {
+  app.use(passport.initialize());
+  passport.use(new LocalStrategy((username, password, cb) => {
+    const { Op } = db.Sequelize;
     db.User.findOne({
       where: {
         [Op.and]: db.sequelize.literal(`lower(username)='${username.toLowerCase()}'`),
@@ -18,11 +14,24 @@ module.exports = (app) => {
       },
     }).then((user) => {
       if (!user || !user.authenticate(password)) {
-        return done(null, false, { message: 'Incorrect username or password.' });
+        return cb(null, false, { message: 'Incorrect username or password.' });
       }
-      return done(null, user, { message: 'Logged In Successfully' });
-    }).catch((err) => done(err));
+      return cb(null, user);
+    }).catch((err) => cb(err));
+  }));
+
+  passport.serializeUser(function(user, cb) {
+    process.nextTick(function() {
+      return cb(null, {
+        id: user.id,
+        username: user.username,
+      });
+    });
   });
 
-  passport.use(localStrategy);
+  passport.deserializeUser(function(user, cb) {
+    process.nextTick(function() {
+      return cb(null, user);
+    });
+  });
 };
