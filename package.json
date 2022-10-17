@@ -1,0 +1,35 @@
+{
+  "name": "twilio-speaker-conference",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsgold8899/twilio-speaker-conference.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "start": "nodemon app.js",
+    "migrate": "node ./node_modules/.bin/sequelize db:migrate",
+    "seed": "node seed/index.js"
+  },
+  "engines": {
+    "node": ">=14.19.3",
+    "npm": ">=6.14.17"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "bootstrap": "^5.2.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "http": "0.0.1-security",
+    "pg": "^8.8.0",
+    "pug": "^3.0.2",
+    "sequelize": "^6.25.2",
+    "sequelize-cli": "^6.4.1",
+    "twilio": "^3.82.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
