@@ -2,7 +2,8 @@ const http = require('http');
 const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
-var session = require('express-session');
+const session = require('express-session');
+const bodyParser = require('body-parser');
 
 dotenv.config();
 
@@ -11,8 +12,6 @@ const setupPassport = require('./middlewares/passport');
 const routes = require('./routes');
 
 const app = express();
-
-setupPassport(app);
 
 app.use(session({
   secret: process.env.SECRET_KEY,
@@ -25,8 +24,11 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+setupPassport(app);
 
 app.use('/', routes);
 

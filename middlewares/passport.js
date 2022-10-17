@@ -5,7 +5,13 @@ const db = require('../models');
 
 module.exports = (app) => {
   app.use(passport.initialize());
-  passport.use(new LocalStrategy((username, password, cb) => {
+  app.use(passport.session());
+  passport.use(new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password',
+    passReqToCallback: true,
+    session: true,
+  }, (req, username, password, cb) => {
     const { Op } = db.Sequelize;
     db.User.findOne({
       where: {
