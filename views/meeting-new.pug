@@ -1,0 +1,15 @@
+extends _layout.pug
+
+block content
+  div.container.py-3
+    include _header
+    main.form-signin
+      form(method='post',action='/meetings/create')
+        h1.h3.mb-3.fw-normal Meeting Details
+        div.form-floating
+          input#start_at.form-control(type='text',name='start_at')
+          label(for='start_at') Start At
+        div.form-floating
+          input#description.form-control(type='text',name='description')
+          label(for='description') Description
+        button.w-100.btn.btn-lg.btn-primary(type='submit') Create

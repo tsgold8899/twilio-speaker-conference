@@ -11,6 +11,9 @@ router.post('/login', authCtrl.postLogin);
 router.get('/login', authCtrl.login);
 router.get('/logout', isAuthenticated, authCtrl.logout);
 
-router.get('/', isAuthenticated, meetingCtrl.list)
+router.get('/', isAuthenticated, meetingCtrl.list);
+router.get('/meetings/new', isAuthenticated, meetingCtrl.new);
+router.post('/meetings/create', isAuthenticated, meetingCtrl.create);
+router.put('/meetings/:id', isAuthenticated, meetingCtrl.startOrJoin);
 
 module.exports = router;
