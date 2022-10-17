@@ -1,4 +1,4 @@
 exports.list = (req, res, next) => {
-  console.log(req.user);
+  console.log(req.session.user);
   res.render('meeting-list');
 };

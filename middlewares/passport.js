@@ -20,12 +20,4 @@ module.exports = (app) => {
       return cb(null, user);
     }).catch((err) => cb(err));
   }));
-
-  passport.serializeUser(function(user, cb) {
-    cb(null, user.id);
-  });
-
-  passport.deserializeUser(function(id, cb) {
-    console.log(id);
-  });
 };

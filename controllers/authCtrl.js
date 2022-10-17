@@ -9,6 +9,7 @@ exports.postLogin = (req, res, next) => {
     if (err || !user) {
       return res.render('login', info);
     }
+    req.session.user = user.id;
     res.redirect('/');
   })(req, res);
 };

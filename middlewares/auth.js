@@ -17,7 +17,7 @@ const handleRole = (req, res, next, roles) => async (err, user /* , info */) => 
 };
 
 const authorize = (roles) => (req, res, next) => {
-  if(req.isAuthenticated()) {
+  if(req.session.user) {
     return next();
   }
   res.redirect('/login');
