@@ -12,6 +12,7 @@ const app = express();
 // setupPassport(app);
 
 app.use(express.static(path.join(__dirname, 'node_modules')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('trust proxy', true);
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
