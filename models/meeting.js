@@ -6,7 +6,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: sequelize.fn('random_string', 'mt_', 12),
     },
-    start_at: DataTypes.DATE,
+    // start_at: DataTypes.DATE,
+    title: DataTypes.STRING,
+    start_time: DataTypes.STRING,
+    description: DataTypes.STRING,
     twilio_sid: DataTypes.STRING,
   }, {
     freezeTableName: true,

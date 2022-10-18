@@ -3,4 +3,13 @@ extends _layout.pug
 block content
   div.container.py-3
     include _header
-  = meetings.length
+    div.row.row-cols-3.g-4.py-5
+      each meeting in meetings
+        div.col
+          h2= meeting.title
+          p= meeting.description
+          if !meeting.twilio_sid
+            form(method='post',action='/meetings/' + meeting.id)
+              button.btn.btn-danger(type=submit) Start
+          if meeting.twilio_sid
+            button.btn.btn-primary(type=submit) Join

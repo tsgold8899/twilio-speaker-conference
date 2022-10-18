@@ -7,9 +7,9 @@ block content
       form(method='post',action='/meetings/create')
         h1.h3.mb-3.fw-normal Meeting Details
         div.form-floating
-          input#start_at.form-control(type='text',name='start_at')
-          label(for='start_at') Start At
+          input#title.form-control(type='text',name='title',required)
+          label(for='title') Title
         div.form-floating
-          input#description.form-control(type='text',name='description')
+          textarea#description.form-control(name='description',rows='10',style='height:200px;')
           label(for='description') Description
         button.w-100.btn.btn-lg.btn-primary(type='submit') Create
