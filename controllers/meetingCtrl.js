@@ -34,7 +34,8 @@ exports.start = async (req, res, next) => {
       type: 'group'
     });
     await meeting.update({
-      twilio_sid: twilioRoom.sid
+      twilio_sid: twilioRoom.sid,
+      twilio_room_name: twilioRoom.uniqueName
     });
     res.redirect('/');
   } catch (err) {
