@@ -11,7 +11,8 @@
   "scripts": {
     "start": "nodemon app.js",
     "migrate": "node ./node_modules/.bin/sequelize db:migrate",
-    "seed": "node seed/index.js"
+    "seed": "node seed/index.js",
+    "deploy": "pm2 deploy ecosystem.config.js development"
   },
   "engines": {
     "node": ">=14.19.3",
