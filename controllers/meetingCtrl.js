@@ -64,7 +64,8 @@ exports.join = async (req, res, next) => {
     const authToken = accessToken.toJwt();
     res.render('meeting-view', {
       twilio_token: authToken,
-      meeting
+      meeting,
+      role: req.user.role,
     });
   } catch (err) {
     next(err);

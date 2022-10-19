@@ -17,8 +17,11 @@ block content
       div
         b Twilio SID:
         = meeting.twilio_sid
+    div#video-list
+  script(src="https://code.jquery.com/jquery-3.6.1.min.js")
   script(src="https://sdk.twilio.com/js/video/releases/2.22.1/twilio-video.min.js")
   script.
-    const twilioToken = ${twilio_token};
-    const twilioRoom = ${meeting.id};
+    const twilioToken = '#{twilio_token}';
+    const twilioRoom = '#{meeting.id}';
+    const role = '#{role}';
   script(src="/video.js")
