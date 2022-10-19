@@ -31,7 +31,8 @@ $(document).ready(function() {
     name: twilioRoom,
     audio: role !== 'listener',
     // audio: false,
-    video: role !== 'listener',
+    // video: role !== 'listener',
+    video: false,
   }).then(room => {
     console.log(`Successfully joined a Room: ${room}`);
     room.on('participantConnected', participant => {
