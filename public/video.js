@@ -27,12 +27,13 @@ $(document).ready(function() {
     $(`#${participant.sid}`).remove();
   }
 
+  const params = (new URL(document.location)).searchParams;
+
   Video.connect(twilioToken, {
     name: twilioRoom,
     audio: role === 'speaker',
     // audio: false,
-    // video: role === 'speaker',
-    video: false,
+    video: role === 'speaker' && params.get('video') === 'on',
   }).then(room => {
     console.log(`Successfully joined a Room: ${room}`);
     room.on('participantConnected', participant => {
