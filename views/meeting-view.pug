@@ -17,6 +17,13 @@ block content
       div
         b Twilio SID:&nbsp;
         = meeting.twilio_sid
+      div
+        b Twilio Room Name:&nbsp;
+        = meeting.twilio_room_name
+      div
+        b Twilio Status:&nbsp;
+        = twilioRoom.status
+        
     div#video-list
   script(src="https://code.jquery.com/jquery-3.6.1.min.js")
   script(src="https://sdk.twilio.com/js/video/releases/2.22.1/twilio-video.min.js")

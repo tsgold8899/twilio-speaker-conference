@@ -48,6 +48,9 @@ exports.join = async (req, res, next) => {
     const { id } = req.params;
     const meeting = await db.Meeting.findByPk(id);
 
+    const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+    const twilioRoom = await client.video.v1.rooms(meeting.twilio_sid).fetch();
+
     const { AccessToken } = twilio.jwt;
     const { VideoGrant } = AccessToken;
     const MAXIMUM_SESSION_DURATION = process.env.TWILIO_MAXIMUM_SESSION_DURATION;
@@ -66,6 +69,7 @@ exports.join = async (req, res, next) => {
     res.render('meeting-view', {
       twilio_token: authToken,
       meeting,
+      twilioRoom,
       role: req.user.role,
     });
   } catch (err) {
