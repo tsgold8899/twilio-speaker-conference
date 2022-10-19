@@ -15,6 +15,6 @@ router.get('/', isAuthenticated, meetingCtrl.list);
 router.get('/meetings/new', isAuthenticated, meetingCtrl.new);
 router.post('/meetings/create', isAuthenticated, meetingCtrl.create);
 router.post('/meetings/:id', isAuthenticated, meetingCtrl.start);
-router.get('/meetings/:id/join', isAuthenticated, meetingCtrl.join);
+router.get('/meetings/:id', isAuthenticated, meetingCtrl.join);
 
 module.exports = router;

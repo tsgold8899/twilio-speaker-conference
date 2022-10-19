@@ -12,4 +12,4 @@ block content
             form(method='post',action='/meetings/' + meeting.id)
               button.btn.btn-danger(type=submit) Start
           if meeting.twilio_sid
-            button.btn.btn-primary(type=submit) Join
+            a.btn.btn-primary(type=submit,href='/meetings/' + meeting.id) Join
