@@ -1,0 +1,20 @@
+extends _layout.pug
+
+block content
+  div.container.py-3
+    include _header
+    main.form-signin.text-start
+      h1.h3.mb-3.fw-normal Meeting Details
+      div
+        b ID:&nbsp;
+        = meeting.id
+      div
+        b Title:&nbsp;
+        = meeting.title
+      div
+        b Description:&nbsp;
+        = meeting.description
+      div
+        b Twilio SID:
+        = meeting.twilio_sid
+  script(src="https://sdk.twilio.com/js/video/releases/2.22.1/twilio-video.min.js")
