@@ -18,3 +18,7 @@ block content
         b Twilio SID:
         = meeting.twilio_sid
   script(src="https://sdk.twilio.com/js/video/releases/2.22.1/twilio-video.min.js")
+  script.
+    const twilioToken = ${twilio_token};
+    const twilioRoom = ${meeting.id};
+  script(src="/video.js")
