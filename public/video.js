@@ -29,9 +29,9 @@ $(document).ready(function() {
 
   Video.connect(twilioToken, {
     name: twilioRoom,
-    audio: role !== 'listener',
+    audio: role === 'speaker',
     // audio: false,
-    // video: role !== 'listener',
+    // video: role === 'speaker',
     video: false,
   }).then(room => {
     console.log(`Successfully joined a Room: ${room}`);
