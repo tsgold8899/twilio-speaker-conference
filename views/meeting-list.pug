@@ -23,7 +23,7 @@ block content
               p.mb-0.opacity-75
                 b Project&nbsp;
                 = meeting.project
-              p.mb-0.opacity-75= meeting.description
+              p.mb-0.opacity-75(style='white-space:pre;')= meeting.description
             div
               if !meeting.twilio_sid
                 form(method='post',action='/mt/' + meeting.id)
