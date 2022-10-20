@@ -36,3 +36,4 @@ exports.isAuthenticated = authorize();
 exports.isAdmin = authorize([USER_ROLES.ADMIN]);
 exports.isSpeaker = authorize([USER_ROLES.SPEAKER]);
 exports.isListener = authorize([USER_ROLES.LISTENER]);
+exports.isAdminOrListener = authorize([USER_ROLES.ADMIN, USER_ROLES.LISTENER]);
