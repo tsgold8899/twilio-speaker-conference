@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: sequelize.fn('random_string', 'mt_', 12),
     },
     // start_at: DataTypes.DATE,
+    speaker_id: DataTypes.INTEGER,
     title: DataTypes.STRING,
     developer: DataTypes.STRING,
     client: DataTypes.STRING,
