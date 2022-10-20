@@ -23,7 +23,7 @@ block content
               p.mb-0.opacity-75
                 b Project&nbsp;
                 = meeting.project
-              p.mb-0.opacity-75(style='white-space:pre;')= meeting.description
+              p.mb-0.opacity-75(style='white-space:pre-line;')= meeting.description
             div
               if !meeting.twilio_sid && (req.user.role === 'admin' || req.user.role === 'listener')
                 form(method='post',action='/mt/' + meeting.id)
