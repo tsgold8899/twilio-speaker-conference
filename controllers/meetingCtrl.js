@@ -52,19 +52,21 @@ exports.start = async (req, res, next) => {
   try {
     const { id } = req.params;
     const meeting = await db.Meeting.findByPk(id);
-    const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-    const twilioRoom = await client.video.v1.rooms.create({
-      uniqueName: meeting.id,
-      recordParticipantsOnConnect: false,
-      emptyRoomTimeout: 10,
-      maxParticipants: 10,
-      type: 'group'
-    });
-    await meeting.update({
-      twilio_sid: twilioRoom.sid,
-      twilio_room_name: twilioRoom.uniqueName,
-      twilio_room_created_at: new Date,
-    });
+    if (!meeting.twilio_sid) {
+      const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+      const twilioRoom = await client.video.v1.rooms.create({
+        uniqueName: meeting.id,
+        recordParticipantsOnConnect: false,
+        emptyRoomTimeout: 10,
+        maxParticipants: 10,
+        type: 'group'
+      });
+      await meeting.update({
+        twilio_sid: twilioRoom.sid,
+        twilio_room_name: twilioRoom.uniqueName,
+        twilio_room_created_at: new Date,
+      });
+    }
     res.redirect('/');
   } catch (err) {
     next(err);
