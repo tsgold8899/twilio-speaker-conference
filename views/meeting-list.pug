@@ -11,6 +11,9 @@ block content
             div.text-start
               h6.mb-0= meeting.title
               p.mb-0.opacity-75
+                b Speaker&nbsp;
+                = meeting.speaker ? meeting.speaker.username : ''
+              p.mb-0.opacity-75
                 b Dev&nbsp;
                 = meeting.developer
               p.mb-0.opacity-75
