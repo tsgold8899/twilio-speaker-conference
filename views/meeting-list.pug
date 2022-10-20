@@ -9,7 +9,8 @@ block content
           img.flex-shrink-0(src="/icon.png",width="50",height='50')
           div.d-flex.gap-2.w-100.justify-content-between
             div.text-start
-              h6.mb-0= meeting.title
+              a.text-decoration-none(href='/mt/meeting.id')
+                h6.mb-0= meeting.title
               p.mb-0.opacity-75
                 b Speaker&nbsp;
                 = meeting.speaker ? meeting.speaker.username : ''
