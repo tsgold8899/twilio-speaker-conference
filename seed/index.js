@@ -8,9 +8,18 @@ const { USER_ROLES } = require('../config/constants');
 const seedUsers = async () => {
   try {
     await db.User.findOrCreate({
-      where: { username: 'tsgold8899' },
+      where: { username: 'admin' },
       defaults: {
-        username: 'tsgold8899',
+        username: 'admin',
+        password: 'password',
+        archived: false,
+        role: USER_ROLES.ADMIN,
+      },
+    });
+    await db.User.findOrCreate({
+      where: { username: 'listener' },
+      defaults: {
+        username: 'listener',
         password: 'password',
         archived: false,
         role: USER_ROLES.LISTENER,
