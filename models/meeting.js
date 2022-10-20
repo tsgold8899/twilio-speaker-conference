@@ -8,8 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     // start_at: DataTypes.DATE,
     title: DataTypes.STRING,
-    start_time: DataTypes.STRING,
+    developer: DataTypes.STRING,
+    client: DataTypes.STRING,
+    project: DataTypes.STRING,
     description: DataTypes.STRING,
+    start_time: DataTypes.STRING,
     twilio_sid: DataTypes.STRING,
     twilio_room_name: DataTypes.STRING,
   }, {

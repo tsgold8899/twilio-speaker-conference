@@ -10,6 +10,15 @@ block content
           input#title.form-control(type='text',name='title',required)
           label(for='title') Title
         div.form-floating
+          input#developer.form-control(type='text',name='developer',required)
+          label(for='developer') Developer
+        div.form-floating
+          input#client.form-control(type='text',name='client',required)
+          label(for='client') Client
+        div.form-floating
+          input#project.form-control(type='text',name='project',required)
+          label(for='project') Project
+        div.form-floating
           textarea#description.form-control(name='description',rows='10',style='height:200px;')
           label(for='description') Description
         button.w-100.btn.btn-lg.btn-primary(type='submit') Create

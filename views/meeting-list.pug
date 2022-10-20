@@ -3,13 +3,26 @@ extends _layout.pug
 block content
   div.container.py-3
     include _header
-    div.row.row-cols-3.g-4.py-5
+    div.list-group.w-auto
       each meeting in meetings
-        div.col
-          h2= meeting.title
-          p= meeting.description
-          if !meeting.twilio_sid
-            form(method='post',action='/mt/' + meeting.id)
-              button.btn.btn-danger(type=submit) Start
-          if meeting.twilio_sid
-            a.btn.btn-primary(type=submit,href='/mt/' + meeting.id) Join
+        div.list-group-item.list-group-item-action.d-flex.gap-3.py-3
+          img.flex-shrink-0(src="/icon.png",width="50",height='50')
+          div.d-flex.gap-2.w-100.justify-content-between
+            div.text-start
+              h6.mb-0= meeting.title
+              p.mb-0.opacity-75
+                b Dev&nbsp;
+                = meeting.developer
+              p.mb-0.opacity-75
+                b Client&nbsp;
+                = meeting.client
+              p.mb-0.opacity-75
+                b Project&nbsp;
+                = meeting.project
+              p.mb-0.opacity-75= meeting.description
+            div
+              if !meeting.twilio_sid
+                form(method='post',action='/mt/' + meeting.id)
+                  button.btn.btn-danger(type=submit) Start
+              if meeting.twilio_sid
+                a.btn.btn-primary(type=submit,href='/mt/' + meeting.id) Join
