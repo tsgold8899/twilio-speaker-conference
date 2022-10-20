@@ -10,7 +10,7 @@ block content
           input#title.form-control(type='text',name='title',required)
           label(for='title') Title
         div.form-floating
-          select#speaker.form-select(required='true')
+          select#speaker.form-select(required='true',name='speaker_id')
             option(selected) Please select
             each speaker in speakers
               option(value=speaker.id)= speaker.username

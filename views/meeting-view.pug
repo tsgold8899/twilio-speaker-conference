@@ -22,6 +22,9 @@ block content
           th Title
           td= meeting.title
         tr
+          th Speaker
+          td= meeting.speaker ? meeting.speaker.username : ''
+        tr
           th Developer
           td= meeting.developer
         tr
