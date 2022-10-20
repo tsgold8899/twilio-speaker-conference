@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  if (!twilioToken) return;
+  if (!twilioRoom) return;
   const Video = Twilio.Video;
 
   function trackSubscribed(div, track) {

@@ -2,7 +2,14 @@ const twilio = require('twilio');
 
 const db = require('../models');
 exports.list = async (req, res, next) => {
-  const meetings = await db.Meeting.findAll();
+  const where = {};
+  if (req.user.role === 'speaker') {
+    // where.speaker = req.user.id
+  }
+  const meetings = await db.Meeting.findAll({
+    where,
+    order: [['created_at', 'desc']],
+  });
   res.render('meeting-list', {
     meetings
   });
