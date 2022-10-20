@@ -5,33 +5,32 @@ block content
     include _header
     main.form-signin.text-start
       h1.h3.mb-3.fw-normal Details
-      div
-        b ID:&nbsp;
-        = meeting.id
-      div
-        b Title:&nbsp;
-        = meeting.title
-      div
-        b Developer:&nbsp;
-        = meeting.developer
-      div
-        b Client:&nbsp;
-        = meeting.client
-      div
-        b Project:&nbsp;
-        = meeting.project
-      div
-        b Description:&nbsp;
-        = meeting.description
-      div
-        b SID:&nbsp;
-        = meeting.twilio_sid
-      div
-        b Room Name:&nbsp;
-        = twilioRoom.uniqueName
-      div
-        b Status:&nbsp;
-        = twilioRoom.status
+      table.table
+        tr
+          th(width='150px') ID
+          td= meeting.id
+        tr
+          td SID
+          td= meeting.twilio_sid
+        tr
+          td Status
+          td= twilioRoom.status
+        tr
+          th Title
+          td= meeting.title
+        tr
+          th Developer
+          td= meeting.developer
+        tr
+          th Client
+          td= meeting.client
+        tr
+          th Project
+          td= meeting.project
+        tr
+          th(colspan=2) Description
+        tr
+          td(colspan=2)= meeting.description
         
     div#video-list
   script(src="https://code.jquery.com/jquery-3.6.1.min.js")
