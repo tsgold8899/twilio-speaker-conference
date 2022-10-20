@@ -1,22 +1,39 @@
 const twilio = require('twilio');
+const { USER_ROLES } = require('../config/constants');
 
 const db = require('../models');
 exports.list = async (req, res, next) => {
   const where = {};
   if (req.user.role === 'speaker') {
-    // where.speaker = req.user.id
+    where.speaker_id = req.user.id;
   }
   const meetings = await db.Meeting.findAll({
     where,
     order: [['created_at', 'desc']],
   });
+  res.locals.req = req;
   res.render('meeting-list', {
     meetings
   });
 };
 
 exports.new = async (req, res, next) => {
-  res.render('meeting-new');
+  try {
+    const { Op } = db.Sequelize;
+
+    const speakers = await db.User.findAll({
+      where: {
+        archived: { [Op.ne]: true },
+        role: USER_ROLES.SPEAKER,
+      },
+    });
+    res.locals.req = req;
+    res.render('meeting-new', {
+      speakers
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
 exports.create = async (req, res, next) => {
@@ -78,7 +95,7 @@ exports.join = async (req, res, next) => {
       accessToken.addGrant(grant);
       authToken = accessToken.toJwt();
     }
-
+    res.locals.req = req;
     res.render('meeting-view', {
       twilio_token: authToken,
       meeting,

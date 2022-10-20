@@ -10,6 +10,11 @@ block content
           input#title.form-control(type='text',name='title',required)
           label(for='title') Title
         div.form-floating
+          select#speaker.form-select
+            each speaker in speakers
+              option(value=speaker.id)= speaker.username
+          label(for='speaker') Speaker
+        div.form-floating
           input#developer.form-control(type='text',name='developer',required)
           label(for='developer') Developer
         div.form-floating

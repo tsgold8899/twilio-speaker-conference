@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { isAuthenticated } = require('../middlewares/auth');
+const { isAuthenticated, isAdmin } = require('../middlewares/auth');
 
 const authCtrl = require('../controllers/authCtrl');
 const meetingCtrl = require('../controllers/meetingCtrl');
@@ -12,10 +12,10 @@ router.get('/login', authCtrl.login);
 router.get('/logout', isAuthenticated, authCtrl.logout);
 
 router.get('/', isAuthenticated, meetingCtrl.list);
-router.get('/mt/new', isAuthenticated, meetingCtrl.new);
-router.post('/mt/create', isAuthenticated, meetingCtrl.create);
+router.get('/mt/new', isAdmin, meetingCtrl.new);
+router.post('/mt/create', isAdmin, meetingCtrl.create);
 router.post('/mt/:id', isAuthenticated, meetingCtrl.start);
 router.get('/mt/:id', isAuthenticated, meetingCtrl.join);
-router.delete('/mt/:id', isAuthenticated, meetingCtrl.delete);
+router.delete('/mt/:id', isAdmin, meetingCtrl.delete);
 
 module.exports = router;

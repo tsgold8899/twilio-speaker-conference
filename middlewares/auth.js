@@ -19,9 +19,14 @@ const { USER_ROLES } = require('../config/constants');
 
 const authorize = (roles) => async (req, res, next) => {
   if(req.session.user) {
-    req.user = await db.User.findByPk(req.session.user);
-    if (req.user) {
-      return next();
+    const user = await db.User.findByPk(req.session.user);
+    if (user) {
+      if (!roles || roles.includes(user.role)) {
+        req.user = user;
+        return next();
+      } else {
+        return res.status(404).send('Unauthorized');
+      }
     }
   }
   res.redirect('/login');
