@@ -9,6 +9,9 @@ exports.list = async (req, res, next) => {
   }
   const meetings = await db.Meeting.findAll({
     where,
+    include: [
+      db.Meeting.Speaker,
+    ],
     order: [['created_at', 'desc']],
   });
   res.locals.req = req;
@@ -71,7 +74,11 @@ exports.start = async (req, res, next) => {
 exports.join = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const meeting = await db.Meeting.findByPk(id);
+    const meeting = await db.Meeting.findByPk(id, {
+      include: [
+        db.Meeting.Speaker,
+      ],
+    });
     let authToken = '';
     let twilioRoom = {};
 

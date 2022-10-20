@@ -22,5 +22,12 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
     timestamps: true,
   });
+  Meeting.associate = (models) => {
+    // associations can be defined here
+    Meeting.Speaker = Meeting.belongsTo(models.User, {
+      as: 'speaker',
+      foreignKey: 'speaker_id'
+    });
+  };
   return Meeting;
 };
