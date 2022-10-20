@@ -25,7 +25,7 @@ block content
                 = meeting.project
               p.mb-0.opacity-75(style='white-space:pre;')= meeting.description
             div
-              if !meeting.twilio_sid
+              if !meeting.twilio_sid && (req.user.role === 'admin' || req.user.role === 'listener')
                 form(method='post',action='/mt/' + meeting.id)
                   button.btn.btn-danger(type=submit) Start
               if meeting.twilio_sid
