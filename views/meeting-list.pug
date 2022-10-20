@@ -9,7 +9,7 @@ block content
           h2= meeting.title
           p= meeting.description
           if !meeting.twilio_sid
-            form(method='post',action='/meetings/' + meeting.id)
+            form(method='post',action='/mt/' + meeting.id)
               button.btn.btn-danger(type=submit) Start
           if meeting.twilio_sid
-            a.btn.btn-primary(type=submit,href='/meetings/' + meeting.id) Join
+            a.btn.btn-primary(type=submit,href='/mt/' + meeting.id) Join

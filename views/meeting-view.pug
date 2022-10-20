@@ -4,7 +4,7 @@ block content
   div.container.py-3
     include _header
     main.form-signin.text-start
-      h1.h3.mb-3.fw-normal Meeting Details
+      h1.h3.mb-3.fw-normal Details
       div
         b ID:&nbsp;
         = meeting.id
@@ -15,13 +15,13 @@ block content
         b Description:&nbsp;
         = meeting.description
       div
-        b Twilio SID:&nbsp;
+        b SID:&nbsp;
         = meeting.twilio_sid
       div
-        b Twilio Room Name:&nbsp;
+        b Room Name:&nbsp;
         = twilioRoom.uniqueName
       div
-        b Twilio Status:&nbsp;
+        b Status:&nbsp;
         = twilioRoom.status
         
     div#video-list

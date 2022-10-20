@@ -12,9 +12,10 @@ router.get('/login', authCtrl.login);
 router.get('/logout', isAuthenticated, authCtrl.logout);
 
 router.get('/', isAuthenticated, meetingCtrl.list);
-router.get('/meetings/new', isAuthenticated, meetingCtrl.new);
-router.post('/meetings/create', isAuthenticated, meetingCtrl.create);
-router.post('/meetings/:id', isAuthenticated, meetingCtrl.start);
-router.get('/meetings/:id', isAuthenticated, meetingCtrl.join);
+router.get('/mt/new', isAuthenticated, meetingCtrl.new);
+router.post('/mt/create', isAuthenticated, meetingCtrl.create);
+router.post('/mt/:id', isAuthenticated, meetingCtrl.start);
+router.get('/mt/:id', isAuthenticated, meetingCtrl.join);
+router.delete('/mt/:id', isAuthenticated, meetingCtrl.delete);
 
 module.exports = router;
