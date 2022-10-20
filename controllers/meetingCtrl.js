@@ -42,7 +42,8 @@ exports.start = async (req, res, next) => {
     });
     await meeting.update({
       twilio_sid: twilioRoom.sid,
-      twilio_room_name: twilioRoom.uniqueName
+      twilio_room_name: twilioRoom.uniqueName,
+      twilio_room_created_at: new Date,
     });
     res.redirect('/');
   } catch (err) {
@@ -93,7 +94,7 @@ exports.delete = async (req, res, next) => {
   try {
     const { id } = req.params;
     const meeting = await db.Meeting.findByPk(id);
-    // TODO: delete
+    await meeting.destroy();
     res.redirect('/');
   } catch (err) {
     next(err);

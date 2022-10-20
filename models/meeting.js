@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     start_time: DataTypes.STRING,
     twilio_sid: DataTypes.STRING,
     twilio_room_name: DataTypes.STRING,
+    twilio_room_created_at: DataTypes.DATE,
   }, {
     freezeTableName: true,
     underscored: true,
