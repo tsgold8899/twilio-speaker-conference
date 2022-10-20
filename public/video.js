@@ -1,4 +1,9 @@
 $(document).ready(function() {
+  $('#delete-form').submit(function (e) {
+    if (!confirm("Are you sure you want to delete?")){
+      e.preventDefault();
+    }
+  });
   if (!twilioToken) return;
   if (!twilioRoom) return;
   const Video = Twilio.Video;

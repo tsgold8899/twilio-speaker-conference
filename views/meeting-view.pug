@@ -36,6 +36,10 @@ block content
           td(colspan=2)= meeting.description
         
     div#video-list
+
+    if req.user.role === 'admin'
+      form#delete-form(method='post',action='/mt/' + meeting.id + '/delete')
+        button.btn.btn-danger(type=submit) Delete
   script(src="https://code.jquery.com/jquery-3.6.1.min.js")
   script(src="https://sdk.twilio.com/js/video/releases/2.22.1/twilio-video.min.js")
   script.

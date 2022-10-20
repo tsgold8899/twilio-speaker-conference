@@ -16,6 +16,6 @@ router.get('/mt/new', isAdmin, meetingCtrl.new);
 router.post('/mt/create', isAdmin, meetingCtrl.create);
 router.post('/mt/:id', isAuthenticated, meetingCtrl.start);
 router.get('/mt/:id', isAuthenticated, meetingCtrl.join);
-router.delete('/mt/:id', isAdmin, meetingCtrl.delete);
+router.post('/mt/:id/delete', isAdmin, meetingCtrl.delete);
 
 module.exports = router;
