@@ -21,11 +21,14 @@ $(document).ready(function() {
     const $div = $('<div></div>');
     $div.id = participant.sid;
     console.log(`participant ${participant.sid}`);
-    participant.on('subscribed', track => trackSubscribed($div, track));
-    participant.on('unsubscribed', track => trackUnsubscribed(track));
+    // participant.on('trackSubscribed', track => trackSubscribed($div, track));
+    // participant.on('trackUnsubscribed', track => trackUnsubscribed(track));
     participant.tracks.forEach(publication => {
-      if (publication.track) {
+      if (publication.isSubscribed) {
         trackSubscribed($div, publication.track);
+      } else {
+        publication.on('subscribed', track => trackSubscribed($div, track));
+        publication.on('unsubscribed', track => trackUnsubscribed(track));
       }
     });
     $('#video-list').append($div);
