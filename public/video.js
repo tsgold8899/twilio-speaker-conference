@@ -24,6 +24,7 @@ $(document).ready(function() {
     // participant.on('trackSubscribed', track => trackSubscribed($div, track));
     // participant.on('trackUnsubscribed', track => trackUnsubscribed(track));
     participant.tracks.forEach(publication => {
+      console.log(publication);
       if (publication.isSubscribed) {
         trackSubscribed($div, publication.track);
       } else {
