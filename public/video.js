@@ -6,33 +6,34 @@ $(document).ready(function() {
   });
   if (!twilioToken) return;
   if (!twilioRoom) return;
-  const Video = Twilio.Video;
 
-  function trackSubscribed(div, track) {
+  const div = $('#video-list');
+
+  function trackSubscribed(track) {
+    console.log('subscribed');
+    console.log(track);
     div.append(track.attach());
   }
 
   function trackUnsubscribed(track) {
+    console.log('unsubscribed');
+    console.log(track);
     track.detach().forEach(element => element.remove());
   }
 
+  function listenToSubscriptionEvents(publication) {
+    if (publication.isSubscribed) {
+      trackSubscribed(publication.track);
+    } else {
+      publication.on('subscribed', trackSubscribed);
+      publication.on('unsubscribed', trackUnsubscribed);
+    }
+  }
+
   function participantConnected(participant) {
-    const self = this;
-    const $div = $('<div></div>');
-    $div.id = participant.sid;
     console.log(`participant ${participant.sid}`);
-    // participant.on('trackSubscribed', track => trackSubscribed($div, track));
-    // participant.on('trackUnsubscribed', track => trackUnsubscribed(track));
-    participant.tracks.forEach(publication => {
-      console.log(publication);
-      if (publication.isSubscribed) {
-        trackSubscribed($div, publication.track);
-      } else {
-        publication.on('subscribed', track => trackSubscribed($div, track));
-        publication.on('unsubscribed', track => trackUnsubscribed(track));
-      }
-    });
-    $('#video-list').append($div);
+    participant.tracks.forEach(listenToSubscriptionEvents);
+    room.on('trackPublished', listenToSubscriptionEvents);
   }
 
   function participantDisconnected(participant) {
@@ -41,7 +42,7 @@ $(document).ready(function() {
 
   const params = (new URL(document.location)).searchParams;
 
-  Video.connect(twilioToken, {
+  Twilio.Video.connect(twilioToken, {
     name: twilioRoom,
     audio: role === 'speaker',
     // audio: false,
@@ -49,12 +50,10 @@ $(document).ready(function() {
   }).then(room => {
     console.log(`Successfully joined a Room: ${room}`);
     participantConnected(room.localParticipant);
-    room.participants.forEach(participant => participantConnected(participant));
-    room.on('participantConnected', participant => participantConnected(participant));
-    room.on('participantDisconnected', participant => participantDisconnected(participant));
-    room.on('disconnected', room => room.participants.forEach(participant => {
-      participantDisconnected(participant);
-    }));
+    room.participants.forEach(participantConnected);
+    room.on('participantConnected', participantConnected);
+    room.on('participantDisconnected', participantDisconnected);
+    room.on('disconnected', room => room.participants.forEach(participantDisconnected));
   }, error => {
     console.error(`Unable to connect to Room: ${error.message}`);
   });
