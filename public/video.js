@@ -33,7 +33,6 @@ $(document).ready(function() {
   function participantConnected(participant) {
     console.log(`participant ${participant.sid}`);
     participant.tracks.forEach(listenToSubscriptionEvents);
-    room.on('trackPublished', listenToSubscriptionEvents);
   }
 
   function participantDisconnected(participant) {
@@ -49,6 +48,7 @@ $(document).ready(function() {
     video: role === 'speaker' && params.get('video') === 'on',
   }).then(room => {
     console.log(`Successfully joined a Room: ${room}`);
+    room.on('trackPublished', listenToSubscriptionEvents);
     participantConnected(room.localParticipant);
     room.participants.forEach(participantConnected);
     room.on('participantConnected', participantConnected);
