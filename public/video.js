@@ -20,8 +20,9 @@ $(document).ready(function() {
     const self = this;
     const $div = $('<div></div>');
     $div.id = participant.sid;
-    participant.on('trackSubscribed', track => trackSubscribed($div, track));
-    participant.on('trackUnsubscribed', track => trackUnsubscribed(track));
+    console.log(`participant ${participant.sid}`);
+    participant.on('subscribed', track => trackSubscribed($div, track));
+    participant.on('unsubscribed', track => trackUnsubscribed(track));
     participant.tracks.forEach(publication => {
       if (publication.track) {
         trackSubscribed($div, publication.track);
@@ -43,10 +44,6 @@ $(document).ready(function() {
     video: role === 'speaker' && params.get('video') === 'on',
   }).then(room => {
     console.log(`Successfully joined a Room: ${room}`);
-    room.on('participantConnected', participant => {
-      console.log(`A remote Participant connected: ${participant}`);
-    });
-
     participantConnected(room.localParticipant);
     room.participants.forEach(participant => participantConnected(participant));
     room.on('participantConnected', participant => participantConnected(participant));
