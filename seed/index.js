@@ -34,6 +34,15 @@ const seedUsers = async () => {
         role: USER_ROLES.SPEAKER,
       },
     });
+    await db.User.findOrCreate({
+      where: { username: 'speaker1' },
+      defaults: {
+        username: 'speaker1',
+        password: 'password',
+        archived: false,
+        role: USER_ROLES.SPEAKER,
+      },
+    });
   } catch (err) {
     console.log(err.message);
   }
