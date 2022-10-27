@@ -7,7 +7,7 @@ $(document).ready(function() {
   if (!twilioToken) return;
   if (!twilioRoom) return;
 
-  const div = $('#video-list');
+  const div = $('#participants-list');
 
   function trackSubscribed(track) {
     console.log('subscribed');
@@ -43,8 +43,7 @@ $(document).ready(function() {
 
   Twilio.Video.connect(twilioToken, {
     name: twilioRoom,
-    audio: role === 'speaker',
-    // audio: false,
+    audio: role === 'speaker' && params.get('audio') !== 'off',
     video: role === 'speaker' && params.get('video') === 'on',
   }).then(room => {
     console.log(`Successfully joined a Room: ${room}`);
