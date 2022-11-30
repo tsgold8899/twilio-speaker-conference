@@ -40,6 +40,10 @@ block content
         
     div#participants-list
 
+    if !meeting.twilio_sid && (req.user.role === 'admin')
+      form(method='post',action='/mt/' + meeting.id)
+        button.btn.btn-success(type=submit) Start
+
     if req.user.role === 'admin'
       form#delete-form(method='post',action='/mt/' + meeting.id + '/delete')
         button.btn.btn-danger(type=submit) Delete

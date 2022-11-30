@@ -67,7 +67,7 @@ exports.start = async (req, res, next) => {
         twilio_room_created_at: new Date,
       });
     }
-    res.redirect('/');
+    res.redirect(`/mt/${id}`);
   } catch (err) {
     next(err);
   }
