@@ -81,9 +81,12 @@ exports.join = async (req, res, next) => {
         db.Meeting.Speaker,
       ],
     });
+    if (!meeting) {
+      res.status(404).send('Not Found');
+    }
     let authToken = '';
     let twilioRoom = {};
-    if (meeting && meeting.twilio_sid) {
+    if (meeting.twilio_sid) {
       const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
       twilioRoom = await client.video.v1.rooms(meeting.twilio_sid).fetch();
       if (twilioRoom.status !== 'completed') {
@@ -103,14 +106,14 @@ exports.join = async (req, res, next) => {
         accessToken.addGrant(grant);
         authToken = accessToken.toJwt();
       }
-      res.locals.req = req;
-      res.render('meeting-view', {
-        twilio_token: authToken,
-        meeting,
-        twilioRoom,
-        role: req.user.role,
-      });
     }
+    res.locals.req = req;
+    res.render('meeting-view', {
+      twilio_token: authToken,
+      meeting,
+      twilioRoom,
+      role: req.user.role,
+    });
   } catch (err) {
     next(err);
   }
