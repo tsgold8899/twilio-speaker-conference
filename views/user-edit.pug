@@ -1,0 +1,30 @@
+extends _layout.pug
+
+block content
+  div.container.py-3
+    include _header
+    main.form-signin
+      form(method='post',action=user.id ? '/usr/' + user.id : '/usr/create')
+        h1.h3.mb-3.fw-normal Details
+        div.form-floating
+          input#username.form-control(type='text',name='username',required,value=user.username)
+          label(for='username') Username
+        div.form-floating
+          select#role.form-select(required='true',name='role')
+            option(selected=!user.role) Please select
+            option(value='admin',selected=user.role === 'admin') Admin
+            option(value='listener',selected=user.role === 'listener') Listener
+            option(value='speaker',selected=user.role === 'speaker') Speaker
+          label(for='role') Role
+        div.form-floating
+          input#password.form-control(type='password',name='password')
+          label(for='password') Password
+        div.form-floating.text-start
+          div.form-check
+            input#archived.form-check-input(type='checkbox',name='archived',checked=user.archived)
+            label.form-check-label(for='archived') Archived
+        button.w-100.btn.btn-lg.btn-primary(type='submit')= user.id ? 'Update' : 'Create'
+      br
+      if user.id && user.id !== req.user.id
+        form#delete-form(method='post',action='/usr/' + user.id + '/delete')
+          button.btn.btn-danger(type=submit) Delete

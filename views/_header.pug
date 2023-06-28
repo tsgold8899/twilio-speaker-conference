@@ -5,6 +5,8 @@ header
 
     nav.d-inline-flex.mt-2.mt-md-0.ms-md-auto
       if req.user.role === 'admin' || req.user.role === 'listener'
-        a.me-3.py-2.btn.btn-primary(href='/mt/new') Create New
+        a.me-3.py-2.btn.btn-primary(href='/mt/new') New Meeting
+      if req.user.role === 'admin'
+        a.me-3.py-2.btn.btn-primary(href='/usr') Users
       a.me-3.py-2.text-dark.text-decoration-none(href='/') Profile
       a.py-2.text-dark.text-decoration-none(href='/logout') Log out

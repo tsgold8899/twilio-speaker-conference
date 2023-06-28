@@ -20,7 +20,7 @@ const { USER_ROLES } = require('../config/constants');
 const authorize = (roles) => async (req, res, next) => {
   if(req.session.user) {
     const user = await db.User.findByPk(req.session.user);
-    if (user) {
+    if (user && !user.archived) {
       if (!roles || roles.includes(user.role)) {
         req.user = user;
         return next();

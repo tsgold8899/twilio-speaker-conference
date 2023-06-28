@@ -1,0 +1,22 @@
+extends _layout.pug
+
+block content
+  div.container.py-3
+    include _header
+    h4 Users
+    div.text-end
+      a.me-3.py-2.btn.btn-primary(href='/usr/new') New User
+    table.table.table-striped
+      thead
+        th Username
+        th Role
+        th Archived
+        th
+      tbody
+        each user in users
+          tr
+            td= user.username
+            td= user.role
+            td #{user.archived ? 'Yes' : 'No'}
+            td
+              a.btn.btn-primary(href='/usr/' + user.id) Edit
